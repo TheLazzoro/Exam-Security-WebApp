@@ -77,11 +77,6 @@ public class UserFacade {
     public void createAdmin(UserDTO userDTO) throws UserAlreadyExistsException {
         EntityManager em = emf.createEntityManager();
 
-        // we only want ONE admin user in this application. Therefore, we throw here.
-        if(adminExists()) {
-            throw new UserAlreadyExistsException("User already exists");
-        }
-
         // In case we want to expand the app with more users at a later point in time.
         User alreadyExists = em.find(User.class, userDTO.getUsername());
         if (alreadyExists != null) {
