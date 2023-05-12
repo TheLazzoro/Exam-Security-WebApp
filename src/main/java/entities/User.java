@@ -31,6 +31,16 @@ public class User implements Serializable {
     @ManyToMany
     private List<Role> roleList = new ArrayList<>();
 
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public List<String> getRolesAsStrings() {
         if (roleList.isEmpty()) {
             return null;

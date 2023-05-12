@@ -20,6 +20,7 @@
 
         <!-- IMPORTANT: The database should exist on your server -->
         <db.name>exam-security</db.name>
+
     </properties>
 
     <dependencies>
@@ -45,6 +46,12 @@
         <dependency>
             <groupId>org.glassfish.jersey.bundles</groupId>
             <artifactId>jaxrs-ri</artifactId>
+            <version>2.32</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
             <version>2.32</version>
         </dependency>
 

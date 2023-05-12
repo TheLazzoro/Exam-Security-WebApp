@@ -34,7 +34,7 @@ public class CreateUserEndpoint {
         if(userDTO.getUsername() == null || userDTO.getPassword() == null)
             throw new API_Exception("Malformed JSON Supplied", 400);
 
-        USER_FACADE.createAdmin(userDTO);
+        USER_FACADE.createUser(userDTO);
         String msg = "{\"msg\":\"Account successfully created!\"}";
 
         return Response

@@ -8,14 +8,24 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 
+import errorhandling.API_Exception;
 import errorhandling.NotFoundException;
 import errorhandling.UserAlreadyExistsException;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import security.errorhandling.AuthenticationException;
+
+import java.io.IOException;
+import java.util.UUID;
+
+import java.io.InputStream;
 
 public class UserFacade {
 
     private static EntityManagerFactory emf;
     private static UserFacade instance;
+
+    private static final String imageLoc = "/home/";
+
 
     private UserFacade() {
     }
@@ -74,7 +84,7 @@ public class UserFacade {
         return user;
     }
 
-    public void createAdmin(UserDTO userDTO) throws UserAlreadyExistsException {
+    public void createUser(UserDTO userDTO) throws UserAlreadyExistsException {
         EntityManager em = emf.createEntityManager();
 
         // In case we want to expand the app with more users at a later point in time.
@@ -85,7 +95,7 @@ public class UserFacade {
 
         try {
             User user = new User(userDTO.getUsername(), userDTO.getPassword());
-            Role userRole = em.find(Role.class, "admin");
+            Role userRole = em.find(Role.class, "user");
             user.addRole(userRole);
 
             em.getTransaction().begin();
@@ -95,6 +105,20 @@ public class UserFacade {
         } finally {
             em.close();
         }
+    }
+
+    public void setProfileImage(String username, InputStream uploadedInputStream, FormDataContentDisposition fileDetail) throws IOException, API_Exception {
+
+        /*
+        byte[] bytes = uploadedInputStream.readAllBytes();
+        if(bytes.length < 4) {
+            throw new API_Exception("Invalid File");
+        }
+
+        String ext = fileDetail.getType();
+        String filename = String.format("%s.%s", UUID.randomUUID().toString(), ext);
+        String finalPath = imageLoc + "/" + username + "/" + filename;
+        */
     }
 
 }
